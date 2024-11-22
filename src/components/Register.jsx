@@ -5,49 +5,59 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [error, setError] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setError("");
     try {
       const response = await apiClient.post("/usuarios/register", { name, email, password });
       console.log("Usuario registrado:", response.data);
-    } catch (error) {
-      console.error("Error al registrarse:", error.response.data);
+      alert("Usuario registrado correctamente");
+    } catch (err) {
+      if (err.response) {
+        setError(err.response.data.mensaje || "Error al registrarse");
+      } else {
+        setError("Error al conectar con el servidor");
+      }
     }
   };
 
   return (
-    <div style={{ padding: "20px", textAlign: "center" }}>
-      <h2>Registrarse</h2>
-      <form onSubmit={handleRegister}>
-        <input
-          type="text"
-          placeholder="Nombre completo"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          style={{ margin: "10px 0", padding: "10px", width: "80%" }}
-        />
-        <br />
-        <input
-          type="email"
-          placeholder="Correo electrónico"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          style={{ margin: "10px 0", padding: "10px", width: "80%" }}
-        />
-        <br />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={{ margin: "10px 0", padding: "10px", width: "80%" }}
-        />
-        <br />
-        <button type="submit" style={{ padding: "10px 20px", marginTop: "10px" }}>
-          Registrarse
-        </button>
-      </form>
+    <div className="flex items-center justify-center h-screen bg-gray-100">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Registrarse</h2>
+        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+        <form onSubmit={handleRegister}>
+          <input
+            type="text"
+            placeholder="Nombre completo"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="email"
+            placeholder="Correo electrónico"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
+          >
+            Registrarse
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

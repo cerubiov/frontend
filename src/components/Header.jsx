@@ -3,17 +3,20 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header style={{ background: "#333", color: "#fff", padding: "10px" }}>
-      <nav>
-        <Link to="/" style={{ margin: "0 15px", color: "#fff", textDecoration: "none" }}>
-          Inicio
-        </Link>
-        <Link to="/login" style={{ margin: "0 15px", color: "#fff", textDecoration: "none" }}>
-          Iniciar Sesión
-        </Link>
-        <Link to="/register" style={{ margin: "0 15px", color: "#fff", textDecoration: "none" }}>
-          Registrarse
-        </Link>
+    <header className="bg-gray-800 text-white py-4">
+      <nav className="container mx-auto flex justify-between items-center">
+        <h1 className="text-lg font-bold">Mi Proyecto</h1>
+        <div className="flex space-x-4">
+          <Link to="/" className="hover:text-gray-300">
+            Inicio
+          </Link>
+          <Link to="/login" className="hover:text-gray-300">
+            Iniciar Sesión
+          </Link>
+          <Link to="/register" className="hover:text-gray-300">
+            Registrarse
+          </Link>
+        </div>
       </nav>
     </header>
   );
