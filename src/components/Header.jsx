@@ -6,7 +6,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 const Header = () => {
   const [usuario, setUsuario] = useState(null);
   const navigate = useNavigate();
-  const location = useLocation(); // Obtén la ruta actual
+  const location = useLocation();
 
   useEffect(() => {
     const usuarioGuardado = localStorage.getItem("usuario");

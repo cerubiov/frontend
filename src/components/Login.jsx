@@ -1,28 +1,28 @@
-import React, { useState } from "react"; // Asegúrate de importar useState
-import { useNavigate } from "react-router-dom"; // Importa useNavigate para la navegación
-import apiClient from "../api/axiosConfig"; // Asegúrate de importar correctamente apiClient
+import React, { useState } from "react"; 
+import { useNavigate } from "react-router-dom"; 
+import apiClient from "../api/axiosConfig";
 
 const Login = () => {
-  // Declaración de estados
-  const [email, setEmail] = useState(""); // Estado para el email
-  const [password, setPassword] = useState(""); // Estado para la contraseña
-  const [error, setError] = useState(""); // Estado para los errores
-  const navigate = useNavigate(); // Hook para la navegación
+  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState(""); 
+  const [error, setError] = useState(""); 
+  const navigate = useNavigate(); 
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Prevenir comportamiento por defecto del formulario
-    setError(""); // Limpiar errores previos
+    e.preventDefault(); 
+    setError(""); 
     try {
       const response = await apiClient.post("/usuarios/iniciarsesion", {
-        correo: email, // Usar el estado del email
-        password, // Usar el estado de la contraseña
+        correo: email, 
+        password, 
       });
-      localStorage.setItem("token", response.data.token); // Guardar el token
+      localStorage.setItem("token", response.data.token); 
       localStorage.setItem(
         "usuario",
-        JSON.stringify({ nombre: response.data.nombre }) // Guardar el nombre del usuario
+        JSON.stringify({ nombre: response.data.nombre }) 
       );
-      navigate("/productos"); // Redirigir a la página de productos
+      navigate("/productos"); 
     } catch (err) {
       if (err.response) {
         setError(err.response.data.mensaje || "Error al iniciar sesión");
@@ -42,14 +42,14 @@ const Login = () => {
             type="email"
             placeholder="Correo electrónico"
             value={email}
-            onChange={(e) => setEmail(e.target.value)} // Actualiza el estado de email
+            onChange={(e) => setEmail(e.target.value)} 
             className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <input
             type="password"
             placeholder="Contraseña"
             value={password}
-            onChange={(e) => setPassword(e.target.value)} // Actualiza el estado de password
+            onChange={(e) => setPassword(e.target.value)} 
             className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
